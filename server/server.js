@@ -36,5 +36,8 @@ app.listen(3000, () =>{
   console.log('Server up on port 3000');
 });
 
+app.get('/', (req, res) => {
+  res.sendStatus(401);
+});
 
 module.exports={app};
