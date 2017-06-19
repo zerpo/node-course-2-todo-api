@@ -41,8 +41,6 @@ app.get('/', (req, res) => {
   res.sendStatus(401);
 });
 
-
-
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id
   if (!ObjectID.isValid(id)){
@@ -57,13 +55,11 @@ app.get('/todos/:id', (req, res) => {
       } else {
         res.sendStatus(404)
         res.send()
-      }
-      
+      }      
     }, (e)=> {
-      res.status(500).send(e)
+      res.status(404).send(e)
     })
   }
-
-
 })
+
 module.exports={app};
