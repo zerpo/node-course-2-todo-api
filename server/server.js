@@ -35,9 +35,7 @@ app.get('/todos', (req, res) => {
   })
 });
 
-app.listen(port, () =>{
-  console.log(`Server up on port ${port}`);
-});
+
 
 app.get('/', (req, res) => {
   res.sendStatus(401);
@@ -63,5 +61,31 @@ app.get('/todos/:id', (req, res) => {
     })
   }
 })
+
+app.delete('/todos/:id', (req, res) =>{
+  //get the id
+  var id = req.params.id;
+
+  //validate id -> return 404
+  if (!ObjectID.isValid(id)){
+    return res.sendStatus(404).send()
+  } else {
+    Todo.findByIdAndRemove(id)
+    .then((todo) => {
+      if(todo){
+        res.send({todo})
+        res.sendStatus(200)
+      } else {
+        res.sendStatus(400)
+        res.send()
+      }
+    }).catch((e) => {return res.status(404).send()})
+  }
+});
+
+
+app.listen(port, () =>{
+  console.log(`Server up on port ${port}`);
+});
 
 module.exports={app};
